@@ -32,20 +32,23 @@ The foundation service of **Bite Flow**. It owns identity, users, customer addre
 ### Request pipeline
 
 ```mermaid
-flowchart TD
-    Req([HTTP request]) --> Sec["Helmet · CORS · JSON & cookie parsing"]
-    Sec --> Corr["Correlation ID"]
-    Corr --> Router["Router /api/*"]
-    Router --> Auth["authenticate<br/>(verify access-token cookie)"]
-    Auth --> Scope["requireRestaurantMember /<br/>requireBranchAccess"]
-    Scope --> Perm["rbac({resource, action})"]
-    Perm --> Ctrl["Controller<br/>(DTO validation)"]
-    Ctrl --> Svc["Service<br/>(business rules)"]
-    Svc --> Repo["Repository<br/>(Knex / SQL)"]
-    Repo --> DB[("PostgreSQL + PostGIS")]
-    Svc -.-> Redis[("Redis")]
-    Svc -.-> Mail["Mailjet"]
-    Router -. "errors" .-> Err["Central error handler"]
+erDiagram
+    users ||--o{ password_resets : requests
+    users ||--o{ customer_addresses : saves
+    users ||--o{ restaurants : owns
+    users ||--o{ restaurant_members : "works as"
+    restaurants ||--o{ restaurant_members : employs
+    roles ||--o{ restaurant_members : "assigned to"
+    roles ||--o{ role_permissions : grants
+    permissions ||--o{ role_permissions : "granted by"
+    restaurant_members ||--o{ member_branches : "assigned to"
+    restaurant_branches ||--o{ member_branches : staffed
+    restaurants ||--o{ restaurant_branches : has
+    restaurants ||--o{ product_categories : defines
+    restaurants ||--o{ products : offers
+    product_categories |o--o{ products : groups
+    products ||--o{ product_branch_details : "sold per branch"
+    restaurant_branches ||--o{ product_branch_details : stocks
 ```
 
 Public routes skip the authentication and authorization steps. Cached routes check Redis right after routing and return early on a hit.
