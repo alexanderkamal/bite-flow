@@ -91,7 +91,7 @@ bite-flow/
 
 Each service is independent, with its own README, `.env.example` and setup steps. Start with [`core-service`](./core-service/README.md).
 
-## Roadmap
+## Roadmap (planned)
 
 - **Orders & payments service**, including a stricter idempotency implementation for payment operations
 - **Analytics service**
