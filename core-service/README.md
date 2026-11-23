@@ -116,7 +116,7 @@ Notable schema choices:
 | `core:branch:update` | ✅ | ✅ | |
 | `core:restaurant:update` | ✅ | | |
 
-Checks are layered: **authenticate** (who are you?) → **restaurant membership** (is this your restaurant?) → **branch access** (is this one of your branches?) → **permission** (is your role allowed this action?). System admins pass the membership, branch and permission checks. Some admin-only actions are enforced in the service layer.
+Checks are layered: **authenticate** (who are you?) → **restaurant membership** (is this your restaurant?) → **branch access** (is this one of your branches?) → **permission** (is your role allowed this action?). System admins pass the membership, branch and permission checks if the endpoints allow system admins. Some admin-only actions are enforced in the service layer.
 
 ## API reference
 
