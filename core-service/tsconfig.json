@@ -1,0 +1,62 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "target": "es2022", // target is the version of JavaScript that TypeScript will output. "es2022" means it will use features available in ECMAScript 2022.
+    "module": "nodenext", // module is the module system that TypeScript will use. "nodenext" means it will use the Node.js module resolution strategy for ECMAScript modules. for example to import a module, you would use `import { something } from './module.js'` instead of require('./module')`.
+    "moduleResolution": "nodenext", // moduleResolution is the strategy TypeScript uses to resolve modules. "nodenext" means it will use the Node.js module resolution strategy for ECMAScript modules.
+    "rootDir": "src", // rootDir is the root directory of your source files. TypeScript will look for files to compile starting from this directory.
+    "outDir": "dist", // outDir is the directory where TypeScript will output the compiled JavaScript files.
+    "strict": true, // (de ely 3ala4anha bnst5dm typescript badal Jscript asasan) strict enables all strict type-checking options. This is a good practice to catch potential errors early.
+    "skipLibCheck": true, // skipLibCheck skips type checking of declaration files (.d). This can speed up compilation, but may miss some type errors in those files.
+    // bas as we are using a trusted libraries, we can skip the type checking of those libraries to speed up the compilation process.
+    "forceConsistentCasingInFileNames": false, // forceConsistentCasingInFileNames ensures that file names are treated as case-sensitive. This can help avoid issues when working on different operating systems.
+    "noImplicitAny": true, // (de brdo mn asbab este5damna le typescript asasan)  noImplicitAny raises an error when a variable is implicitly assigned the 'any' type. This encourages you to explicitly define types for your variables.
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    
+
+
+
+      // old (default configuration )
+    // // File Layout
+    // // "rootDir": "./src",
+    // // "outDir": "./dist",
+
+    // // Environment Settings
+    // // See also https://aka.ms/tsconfig/module
+    // "module": "nodenext",
+    // "target": "esnext",
+    // "types": [],
+    // // For nodejs:
+    // // "lib": ["esnext"],
+    // // "types": ["node"],
+    // // and npm install -D @types/node
+
+    // // Other Outputs
+    // "sourceMap": true,
+    // "declaration": true,
+    // "declarationMap": true,
+
+    // // Stricter Typechecking Options
+    // "noUncheckedIndexedAccess": true,
+    // "exactOptionalPropertyTypes": true,
+
+    // // Style Options
+    // // "noImplicitReturns": true,
+    // // "noImplicitOverride": true,
+    // // "noUnusedLocals": true,
+    // // "noUnusedParameters": true,
+    // // "noFallthroughCasesInSwitch": true,
+    // // "noPropertyAccessFromIndexSignature": true,
+
+    // // Recommended Options
+    // "strict": true,
+    // "jsx": "react-jsx",
+    // "verbatimModuleSyntax": true,
+    // "isolatedModules": true,
+    // "noUncheckedSideEffectImports": true,
+    // "moduleDetection": "force",
+    // "skipLibCheck": true,
+  },
+  "include": ["src"] // include specifies the files or directories that TypeScript should include in the compilation. In this case, it includes all files in the "src" directory.
+}

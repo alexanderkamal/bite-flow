@@ -1,0 +1,44 @@
+import type { Knex } from "knex";
+
+
+export async function up(knex: Knex): Promise<void> {
+    await knex.raw(`
+
+        CREATE EXTENSION IF NOT EXISTS postgis;
+
+        CREATE TYPE currency_enum AS ENUM('EGP','SAR');
+
+        CREATE TABLE restaurant_branches (
+        id SERIAL PRIMARY KEY,
+        restaurant_id BIGINT NOT NULL,
+        label TEXT NOT NULL,
+        country_code TEXT NOT NULL,
+        address_text TEXT NOT NULL,
+        longitude DECIMAL(9, 6) NOT NULL,
+        latitude DECIMAL(9, 6) NOT NULL,
+        is_active BOOLEAN NOT NULL,
+        opens_at TIME NOT NULL,
+        closes_at TIME NOT NULL,
+        accept_orders BOOLEAN NOT NULL,
+        delivery_radius SMALLINT NOT NULL,
+        currency currency_enum NOT NULL,
+        commission INT NOT NULL,
+        created_at TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP NOT NULL,
+        location geography(point, 4326) GENERATED ALWAYS AS (ST_MakePoint(longitude, latitude)::geography) STORED,
+
+        CONSTRAINT fk_restaurant_branches_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
+
+        );
+
+        CREATE INDEX idx_restaurant_branches_restaurant_id ON restaurant_branches(restaurant_id);
+        CREATE INDEX idx_restaurant_branches_is_active ON restaurant_branches(is_active);
+        CREATE INDEX idx_restaurant_branches_location ON restaurant_branches USING GIST(location);
+        
+        `)
+}
+
+
+export async function down(knex: Knex): Promise<void> {
+}
+

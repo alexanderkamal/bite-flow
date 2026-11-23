@@ -1,0 +1,13 @@
+import Router from 'express';
+import { pingDB } from '../../lib/knex/knex';
+
+export const healthRoutes = Router();
+
+healthRoutes.get('/', async (req, res) => {
+    try {
+        await pingDB();
+        res.status(200).json({ status: 'ok' });
+    } catch (error) {
+        throw error;
+    }   
+})
